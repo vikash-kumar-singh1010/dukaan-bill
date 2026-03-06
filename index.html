@@ -467,9 +467,168 @@ body {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   z-index: 10;
-  background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
-  padding: 24px 20px calc(20px + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 60%, transparent);
+  padding: 0 0 calc(env(safe-area-inset-bottom, 0px));
 }
+
+/* LIVE CART PANEL on scanner */
+.live-cart-panel {
+  background: white;
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
+}
+.live-cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--border);
+}
+.live-cart-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.live-cart-count {
+  background: var(--primary);
+  color: white;
+  border-radius: 20px;
+  padding: 2px 9px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.live-cart-clear {
+  font-size: 12px;
+  color: var(--red);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  background: var(--red-bg);
+  border-radius: 6px;
+}
+.live-cart-clear:active { opacity: 0.7; }
+
+/* Scrollable items list */
+.live-cart-items {
+  max-height: 180px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 6px 0;
+}
+.live-cart-items::-webkit-scrollbar { display: none; }
+
+.live-cart-item {
+  display: flex;
+  align-items: center;
+  padding: 7px 16px;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+  animation: slideInItem 0.25s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes slideInItem {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.live-cart-item:last-child { border-bottom: none; }
+.lci-emoji {
+  font-size: 20px;
+  width: 32px; height: 32px;
+  background: var(--bg);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.lci-info { flex: 1; min-width: 0; }
+.lci-name { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lci-unit { font-size: 11px; color: var(--muted); }
+.lci-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.lci-amount { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); }
+.lci-qty-row { display: flex; align-items: center; gap: 0; }
+.lci-qty-btn {
+  width: 24px; height: 24px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.15s;
+}
+.lci-qty-btn.minus { background: var(--red-bg); color: var(--red); }
+.lci-qty-btn.plus  { background: var(--green-bg); color: var(--green); }
+.lci-qty-btn:active { transform: scale(0.82); }
+.lci-qty-num { min-width: 28px; text-align: center; font-weight: 700; font-size: 13px; color: var(--text); }
+
+.live-cart-empty {
+  padding: 16px;
+  text-align: center;
+  color: var(--muted2);
+  font-size: 13px;
+}
+
+/* Total + actions row */
+.live-cart-footer {
+  padding: 10px 16px 14px;
+  border-top: 1px solid var(--border);
+  background: var(--white);
+}
+.live-total-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.live-total-label { font-size: 13px; font-weight: 600; color: var(--muted); }
+.live-total-amount {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--primary);
+}
+.live-tax-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.live-actions { display: flex; gap: 8px; }
+.live-bill-btn {
+  flex: 1;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 4px 16px rgba(255,107,53,0.4);
+  transition: all 0.2s;
+}
+.live-bill-btn:active { transform: scale(0.97); }
+.live-bill-btn:disabled { background: var(--border2); box-shadow: none; cursor: not-allowed; }
+.live-manual-btn {
+  background: var(--bg);
+  border: 1.5px solid var(--border2);
+  border-radius: 12px;
+  padding: 14px 14px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+.live-manual-btn:active { background: var(--border); }
 
 .manual-entry-btn {
   display: flex;
@@ -515,26 +674,85 @@ body {
 .cart-total { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; color: var(--primary); }
 .view-cart-arrow { font-size: 16px; color: var(--muted2); margin-left: 4px; }
 
-/* SCAN TOAST */
+/* SCAN TOAST — kept for compatibility */
 .scan-toast {
-  position: absolute;
-  top: 90px;
-  left: 50%;
-  transform: translateX(-50%) translateY(-20px);
-  background: rgba(18, 183, 106, 0.95);
-  color: white;
-  border-radius: 12px;
-  padding: 10px 18px;
-  font-size: 13px;
-  font-weight: 600;
-  z-index: 30;
-  opacity: 0;
-  transition: all 0.3s;
-  white-space: nowrap;
-  backdrop-filter: blur(10px);
-  pointer-events: none;
+  display: none;
 }
-.scan-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ============================
+   SUPERMARKET ITEM POPUP
+   ============================ */
+.item-popup {
+  position: absolute;
+  top: 80px;
+  left: 16px; right: 16px;
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-10px) scale(0.96);
+  transition: opacity 0.18s ease, transform 0.22s cubic-bezier(0.34,1.4,0.64,1);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.item-popup.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.item-popup.success {
+  background: rgba(18, 183, 106, 0.92);
+}
+.item-popup.error {
+  background: rgba(240, 68, 56, 0.92);
+}
+.ip-icon {
+  font-size: 32px;
+  width: 48px; height: 48px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.ip-info { flex: 1; min-width: 0; }
+.ip-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ip-price {
+  font-size: 12px;
+  color: rgba(255,255,255,0.85);
+  margin-top: 2px;
+}
+.ip-code {
+  font-size: 11px;
+  color: rgba(255,255,255,0.8);
+  font-family: monospace;
+  margin-top: 2px;
+}
+.ip-sub {
+  font-size: 11px;
+  margin-top: 3px;
+  font-weight: 600;
+}
+.new-sub  { color: rgba(255,255,255,0.9); }
+.dup-sub  { color: #fff; background: rgba(255,255,255,0.2); display: inline-block; padding: 1px 7px; border-radius: 20px; }
+.error-sub { color: rgba(255,255,255,0.85); }
+.ip-total {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: white;
+  flex-shrink: 0;
+}
 
 /* ============================
    CART SCREEN
@@ -1765,6 +1983,8 @@ body {
       </div>
       <div class="scan-success-flash" id="scanFlash"></div>
       <div class="scan-toast" id="scanToast"></div>
+      <!-- SUPERMARKET ITEM POPUP -->
+      <div class="item-popup" id="itemPopup"></div>
 
       <div class="scanner-header">
         <div class="scanner-title">Scan Barcode</div>
@@ -1772,21 +1992,45 @@ body {
       </div>
 
       <div class="scanner-bottom">
-        <div class="manual-entry-btn" onclick="openManualAdd()">
-          ⌨️ Enter Barcode Manually
-        </div>
-        <div class="cart-preview" onclick="goToCart()">
-          <div class="cart-preview-left">
-            <div class="cart-badge" id="cartBadge">0</div>
-            <div>
-              <div class="cart-preview-label">View Cart</div>
-              <div class="cart-preview-sub" id="cartItemsLabel">No items yet</div>
+        <div class="live-cart-panel">
+
+          <!-- Header -->
+          <div class="live-cart-header">
+            <div class="live-cart-title">
+              🛒 Live Cart
+              <span class="live-cart-count" id="liveCartCount">0</span>
+            </div>
+            <div class="live-cart-clear" onclick="clearCart()" id="liveClearBtn" style="display:none">Clear</div>
+          </div>
+
+          <!-- Items List -->
+          <div class="live-cart-items" id="liveCartItems">
+            <div class="live-cart-empty">Scan a barcode to add items →</div>
+          </div>
+
+          <!-- Footer: total + buttons -->
+          <div class="live-cart-footer">
+            <div class="live-total-row">
+              <div>
+                <div class="live-total-label">GRAND TOTAL</div>
+                <div class="live-total-amount" id="liveTotalAmount">₹0.00</div>
+              </div>
+              <div class="live-tax-row" style="flex-direction:column;align-items:flex-end;gap:4px">
+                <div class="tax-toggle" onclick="toggleTax(); renderLiveCart();" style="justify-content:flex-end">
+                  <div class="toggle-switch" id="taxToggle"></div>
+                  <span style="font-size:12px;color:var(--muted)">GST 18%</span>
+                </div>
+                <div style="font-size:11px;color:var(--muted)" id="liveTaxAmt"></div>
+              </div>
+            </div>
+            <div class="live-actions">
+              <div class="live-manual-btn" onclick="openManualAdd()" title="Manual entry">⌨️</div>
+              <button class="live-bill-btn" id="liveBillBtn" onclick="generateBillFromScanner()" disabled>
+                🧾 Generate Bill
+              </button>
             </div>
           </div>
-          <div style="display:flex;align-items:center">
-            <div class="cart-total" id="cartTotalPreview">₹0</div>
-            <div class="view-cart-arrow">›</div>
-          </div>
+
         </div>
       </div>
     </div>
@@ -2024,14 +2268,6 @@ body {
         <div style="margin: 16px 0 8px">
           <div class="section-title">Data</div>
         </div>
-        <div class="settings-item" onclick="exportData()">
-          <div class="settings-icon" style="background:#EFF8FF">📤</div>
-          <div class="settings-text">
-            <div class="settings-label">Export Bills</div>
-            <div class="settings-sub">Download as JSON</div>
-          </div>
-          <div class="settings-arrow">›</div>
-        </div>
         <div class="settings-item" onclick="confirmClearData()">
           <div class="settings-icon" style="background:#FEF3F2">🗑️</div>
           <div class="settings-text">
@@ -2250,7 +2486,6 @@ function load() {
 let screenStack = ['home'];
 
 function showScreen(id) {
-  const all = document.querySelectorAll('.screen');
   const current = document.querySelector('.screen.active');
   const next = document.getElementById(id);
   if (!next || current === next) return;
@@ -2269,6 +2504,11 @@ function showScreen(id) {
     }, 300);
   });
 
+  // Push a history entry so Android back button works
+  if (id !== 'home') {
+    history.pushState({ screen: id }, '', '');
+  }
+
   screenStack.push(id);
 
   if (id === 'products') renderProducts();
@@ -2280,8 +2520,58 @@ function showScreen(id) {
 function goBack() {
   screenStack.pop();
   const prev = screenStack[screenStack.length - 1] || 'home';
-  showScreen(prev);
+  // Navigate back without pushing new history
+  const current = document.querySelector('.screen.active');
+  const next = document.getElementById(prev);
+  if (!next || current === next) return;
+
+  current.classList.add('slide-out');
+  next.style.transform = 'translateX(100%)';
+  next.classList.add('active');
+
+  requestAnimationFrame(() => {
+    next.style.transform = '';
+    next.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1)';
+    setTimeout(() => {
+      current.classList.remove('active', 'slide-out');
+      next.style.transition = '';
+      state.currentScreen = prev;
+    }, 300);
+  });
+
+  if (prev === 'products') renderProducts();
+  if (prev === 'bills') renderBillHistory();
+  if (prev === 'home') updateHome();
+  if (prev === 'settings') updateSettingsUI();
 }
+
+// Android hardware back button handler
+window.addEventListener('popstate', function(e) {
+  const currentScreen = state.currentScreen;
+
+  // If on scanner, stop scanner first
+  if (currentScreen === 'scanner') {
+    if (state.scannerRunning) {
+      Quagga.stop();
+      state.scannerRunning = false;
+    }
+  }
+
+  // If already on home, let the browser handle (minimize app)
+  if (currentScreen === 'home') {
+    return;
+  }
+
+  // Otherwise go back within the app
+  goBack();
+
+  // Push a new state so we don't fall out of the app
+  if (state.currentScreen !== 'home') {
+    history.pushState({ screen: state.currentScreen }, '', '');
+  } else {
+    history.pushState({ screen: 'home' }, '', '');
+  }
+});
 
 // ============================================
 // TOAST
@@ -2347,6 +2637,83 @@ function startNewBill() {
   setTimeout(startScanner, 400);
 }
 
+// ============================================
+// BEEP SOUNDS (Web Audio API — no file needed)
+// ============================================
+let audioCtx = null;
+
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playBeep(type) {
+  try {
+    const ctx = getAudioCtx();
+
+    if (type === 'success') {
+      // Classic supermarket scanner beep — short, sharp, high pitch
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(1850, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(1950, ctx.currentTime + 0.04);
+      gain.gain.setValueAtTime(0.35, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.12);
+
+    } else if (type === 'duplicate') {
+      // Double beep — item qty increased
+      [0, 0.1].forEach(offset => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(1600, ctx.currentTime + offset);
+        gain.gain.setValueAtTime(0.25, ctx.currentTime + offset);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + offset + 0.08);
+        osc.start(ctx.currentTime + offset);
+        osc.stop(ctx.currentTime + offset + 0.08);
+      });
+
+    } else if (type === 'error') {
+      // Low buzz — unknown barcode
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(220, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(180, ctx.currentTime + 0.3);
+      gain.gain.setValueAtTime(0.3, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.3);
+    }
+  } catch(e) {
+    // Audio not supported — silently skip
+  }
+}
+
+// Unlock audio on first user interaction (required by browsers)
+function unlockAudio() {
+  try {
+    const ctx = getAudioCtx();
+    if (ctx.state === 'suspended') ctx.resume();
+  } catch(e) {}
+  document.removeEventListener('touchstart', unlockAudio);
+  document.removeEventListener('click', unlockAudio);
+}
+document.addEventListener('touchstart', unlockAudio, { once: true });
+document.addEventListener('click', unlockAudio, { once: true });
+
+// ============================================
+// SCANNER
+// ============================================
 function startScanner() {
   if (state.scannerRunning) return;
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -2360,16 +2727,24 @@ function startScanner() {
       type: 'LiveStream',
       target: document.querySelector('#interactive'),
       constraints: {
-        width: { min: 640 },
-        height: { min: 480 },
+        width: { min: 1280 },
+        height: { min: 720 },
         facingMode: 'environment',
       },
     },
     locator: { patchSize: 'medium', halfSample: true },
-    numOfWorkers: 2,
-    frequency: 10,
+    numOfWorkers: navigator.hardwareConcurrency || 2,
+    frequency: 15,
     decoder: {
-      readers: ['ean_reader', 'ean_8_reader', 'code_128_reader', 'code_39_reader', 'upc_reader', 'upc_e_reader']
+      readers: [
+        'ean_reader',
+        'ean_8_reader',
+        'code_128_reader',
+        'code_39_reader',
+        'upc_reader',
+        'upc_e_reader'
+      ],
+      multiple: false
     },
     locate: true,
   }, function(err) {
@@ -2382,12 +2757,27 @@ function startScanner() {
     state.scannerRunning = true;
   });
 
+  // Debounce: same barcode must not re-trigger within 1.2s
+  // Different barcodes can scan immediately
   let lastCode = '';
   let lastTime = 0;
+  const SAME_CODE_DELAY = 1200; // ms before same barcode rescans
+
   Quagga.onDetected(function(result) {
+    // Confidence check — only accept high-confidence scans
     const code = result.codeResult.code;
+    const confidence = result.codeResult.decodedCodes
+      .filter(x => x.error !== undefined)
+      .reduce((s, x, _, a) => s + x.error / a.length, 0);
+
+    // Reject low confidence reads (reduces false positives)
+    if (confidence > 0.15) return;
+
     const now = Date.now();
-    if (code === lastCode && now - lastTime < 2000) return;
+
+    // Same barcode within delay → skip (prevents duplicate rapid fires)
+    if (code === lastCode && now - lastTime < SAME_CODE_DELAY) return;
+
     lastCode = code;
     lastTime = now;
     handleBarcodeScan(code);
@@ -2400,7 +2790,8 @@ function stopScanner() {
     state.scannerRunning = false;
   }
   if (state.cart.length > 0) {
-    showScreen('cart');
+    showScreen('home');
+    updateHome();
   } else {
     showScreen('home');
   }
@@ -2408,24 +2799,84 @@ function stopScanner() {
 
 function handleBarcodeScan(code) {
   const product = state.products.find(p => p.barcode === code);
+
   if (!product) {
-    showScanToast('❌ Unknown barcode: ' + code);
+    // Unknown barcode
+    playBeep('error');
     flashScreen('red');
-    vibrate([100,50,100]);
+    vibrate([80, 40, 80, 40, 80]);
+    showItemPopup(null, code);
     return;
   }
 
+  // Check if already in cart (duplicate scan = qty++)
+  const existing = state.cart.find(i => i.barcode === code);
+  const isDuplicate = !!existing;
+
   addToCart(product);
-  showScanToast('✅ ' + product.name + ' added!');
+
+  // Supermarket beep
+  if (isDuplicate) {
+    playBeep('duplicate');   // double beep for qty increase
+  } else {
+    playBeep('success');     // single beep for new item
+  }
+
   flashScreen('green');
   vibrate([30]);
+  showItemPopup(product, null, isDuplicate);
+}
+
+// ============================================
+// ITEM ADDED POPUP (supermarket style)
+// ============================================
+let popupTimer = null;
+
+function showItemPopup(product, unknownCode, isDuplicate) {
+  let popup = document.getElementById('itemPopup');
+  if (!popup) return;
+
+  clearTimeout(popupTimer);
+
+  if (!product) {
+    // Error popup
+    popup.className = 'item-popup error show';
+    popup.innerHTML = `
+      <div class="ip-icon">❌</div>
+      <div class="ip-info">
+        <div class="ip-name">Unknown Barcode</div>
+        <div class="ip-code">${unknownCode}</div>
+        <div class="ip-sub error-sub">Add this product first in Products tab</div>
+      </div>
+    `;
+  } else {
+    const existing = state.cart.find(i => i.barcode === product.barcode);
+    const qty = existing ? existing.qty : 1;
+
+    popup.className = 'item-popup success show';
+    popup.innerHTML = `
+      <div class="ip-icon">${product.emoji || '📦'}</div>
+      <div class="ip-info">
+        <div class="ip-name">${product.name}</div>
+        <div class="ip-price">₹${product.price.toFixed(2)} / ${product.unit}</div>
+        ${isDuplicate ? `<div class="ip-sub dup-sub">Qty updated → ×${qty}</div>` : '<div class="ip-sub new-sub">✔ Added to cart</div>'}
+      </div>
+      <div class="ip-total">₹${(product.price * qty).toFixed(2)}</div>
+    `;
+  }
+
+  popupTimer = setTimeout(() => {
+    popup.classList.remove('show');
+  }, 1400);
 }
 
 function flashScreen(color) {
   const flash = document.getElementById('scanFlash');
-  flash.style.background = color === 'green' ? 'rgba(18,183,106,0.3)' : 'rgba(240,68,56,0.3)';
+  flash.style.background = color === 'green'
+    ? 'rgba(18,183,106,0.25)'
+    : 'rgba(240,68,56,0.35)';
   flash.classList.add('show');
-  setTimeout(() => flash.classList.remove('show'), 250);
+  setTimeout(() => flash.classList.remove('show'), 180);
 }
 
 function vibrate(pattern) {
@@ -2433,11 +2884,9 @@ function vibrate(pattern) {
 }
 
 function showScanToast(msg) {
-  const t = document.getElementById('scanToast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2000);
+  // Kept for compatibility — supermarket mode uses popup instead
 }
+
 
 // ============================================
 // CART
@@ -2449,16 +2898,77 @@ function addToCart(product) {
   } else {
     state.cart.push({ ...product, qty: 1 });
   }
-  updateCartPreview();
+  renderLiveCart();
+  updateCartUI();
+}
+
+// ============================================
+// LIVE CART (on scanner screen)
+// ============================================
+function renderLiveCart() {
+  const subtotal = state.cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const tax = state.taxEnabled ? subtotal * 0.18 : 0;
+  const total = subtotal + tax;
+  const count = state.cart.reduce((s, i) => s + i.qty, 0);
+
+  // Count badge
+  document.getElementById('liveCartCount').textContent = count;
+
+  // Total
+  document.getElementById('liveTotalAmount').textContent = '₹' + total.toFixed(2);
+  document.getElementById('liveTaxAmt').textContent = state.taxEnabled ? 'GST: ₹' + tax.toFixed(2) : '';
+
+  // Clear button visibility
+  const clearBtn = document.getElementById('liveClearBtn');
+  if (clearBtn) clearBtn.style.display = state.cart.length > 0 ? 'block' : 'none';
+
+  // Generate bill button
+  const billBtn = document.getElementById('liveBillBtn');
+  if (billBtn) billBtn.disabled = state.cart.length === 0;
+
+  // Items list
+  const container = document.getElementById('liveCartItems');
+  if (!container) return;
+
+  if (state.cart.length === 0) {
+    container.innerHTML = `<div class="live-cart-empty">Scan a barcode to add items →</div>`;
+    return;
+  }
+
+  container.innerHTML = state.cart.map((item, idx) => `
+    <div class="live-cart-item" id="lci${idx}">
+      <div class="lci-emoji">${item.emoji || '📦'}</div>
+      <div class="lci-info">
+        <div class="lci-name">${item.name}</div>
+        <div class="lci-unit">₹${item.price.toFixed(2)} / ${item.unit}</div>
+      </div>
+      <div class="lci-right">
+        <div class="lci-amount">₹${(item.price * item.qty).toFixed(2)}</div>
+        <div class="lci-qty-row">
+          <div class="lci-qty-btn minus" onclick="lciChangeQty(${idx}, -1)">−</div>
+          <div class="lci-qty-num">${item.qty}</div>
+          <div class="lci-qty-btn plus" onclick="lciChangeQty(${idx}, 1)">+</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  // Auto scroll to bottom so newest item is visible
+  container.scrollTop = container.scrollHeight;
+}
+
+function lciChangeQty(idx, delta) {
+  state.cart[idx].qty += delta;
+  if (state.cart[idx].qty <= 0) {
+    state.cart.splice(idx, 1);
+  }
+  renderLiveCart();
   updateCartUI();
 }
 
 function updateCartPreview() {
-  const total = state.cart.reduce((s, i) => s + i.price * i.qty, 0);
-  const count = state.cart.reduce((s, i) => s + i.qty, 0);
-  document.getElementById('cartBadge').textContent = count;
-  document.getElementById('cartTotalPreview').textContent = '₹' + total.toFixed(2);
-  document.getElementById('cartItemsLabel').textContent = count === 0 ? 'No items yet' : count + ' item' + (count !== 1 ? 's' : '') + ' scanned';
+  // Keep for compatibility — now handled by renderLiveCart
+  renderLiveCart();
 }
 
 function updateCartUI() {
@@ -2467,17 +2977,24 @@ function updateCartUI() {
   const total = subtotal + tax;
   const count = state.cart.reduce((s, i) => s + i.qty, 0);
 
-  document.getElementById('cartItemCount').textContent = state.cart.length + ' items';
-  document.getElementById('summaryItems').textContent = count;
-  document.getElementById('summaryTotal').textContent = '₹' + total.toFixed(2);
-  document.getElementById('subtotalDisplay').textContent = '₹' + subtotal.toFixed(2);
-  document.getElementById('taxDisplay').textContent = '₹' + tax.toFixed(2);
-  document.getElementById('totalDisplay').textContent = '₹' + total.toFixed(2);
+  const ci = document.getElementById('cartItemCount');
+  if (ci) ci.textContent = state.cart.length + ' items';
+  const si = document.getElementById('summaryItems');
+  if (si) si.textContent = count;
+  const st = document.getElementById('summaryTotal');
+  if (st) st.textContent = '₹' + total.toFixed(2);
+  const sd = document.getElementById('subtotalDisplay');
+  if (sd) sd.textContent = '₹' + subtotal.toFixed(2);
+  const td = document.getElementById('taxDisplay');
+  if (td) td.textContent = '₹' + tax.toFixed(2);
+  const totd = document.getElementById('totalDisplay');
+  if (totd) totd.textContent = '₹' + total.toFixed(2);
 
   const btn = document.getElementById('generateBtn');
-  btn.disabled = state.cart.length === 0;
+  if (btn) btn.disabled = state.cart.length === 0;
 
   const list = document.getElementById('cartList');
+  if (!list) return;
   if (state.cart.length === 0) {
     list.innerHTML = `<div class="empty-state"><div class="empty-icon">🛒</div><p>Cart is empty.<br>Scan items to add them.</p></div>`;
     return;
@@ -2512,7 +3029,7 @@ function changeQty(idx, delta) {
     return;
   }
   updateCartUI();
-  updateCartPreview();
+  renderLiveCart();
 }
 
 function removeItem(idx) {
@@ -2522,8 +3039,12 @@ function removeItem(idx) {
     setTimeout(() => {
       state.cart.splice(idx, 1);
       updateCartUI();
-      updateCartPreview();
+      renderLiveCart();
     }, 200);
+  } else {
+    state.cart.splice(idx, 1);
+    updateCartUI();
+    renderLiveCart();
   }
 }
 
@@ -2532,15 +3053,27 @@ function clearCart() {
   if (confirm('Clear all items from cart?')) {
     state.cart = [];
     updateCartUI();
-    updateCartPreview();
+    renderLiveCart();
   }
 }
 
 function toggleTax() {
   state.taxEnabled = !state.taxEnabled;
   const toggle = document.getElementById('taxToggle');
-  toggle.classList.toggle('on', state.taxEnabled);
+  if (toggle) toggle.classList.toggle('on', state.taxEnabled);
   updateCartUI();
+  renderLiveCart();
+}
+
+// Generate bill directly from scanner screen
+function generateBillFromScanner() {
+  if (state.cart.length === 0) return;
+  // Stop scanner
+  if (state.scannerRunning) {
+    Quagga.stop();
+    state.scannerRunning = false;
+  }
+  generateBill();
 }
 
 function backToScanner() {
@@ -2932,16 +3465,6 @@ function saveFooterSettings() {
   showToast('✅ Saved!', 'success');
 }
 
-function exportData() {
-  const data = { bills: state.bills, products: state.products, settings: state.settings };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'shopbill-backup-' + new Date().toISOString().slice(0,10) + '.json';
-  a.click();
-  showToast('📤 Data exported!', 'success');
-}
-
 function confirmClearData() {
   if (confirm('⚠️ This will erase ALL bills and products. Are you sure?')) {
     if (confirm('Last warning! This cannot be undone.')) {
@@ -2999,7 +3522,9 @@ function init() {
   loadSampleData();
   updateHome();
 
-  // Set home as first active screen
+  // Push initial history state so Android back button is intercepted
+  history.replaceState({ screen: 'home' }, '', '');
+
   document.getElementById('home').classList.add('active');
   document.getElementById('home').style.transform = 'translateX(0)';
 }
